@@ -12,7 +12,7 @@ final class ImagesListCell: UITableViewCell {
     
     @IBOutlet weak var heartButton: UIButton!
     
-    @IBOutlet weak var zeroImage: UIImageView!
+    @IBOutlet weak var sourceImageView: UIImageView!
     
-    @IBOutlet weak var underAdress: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
 }

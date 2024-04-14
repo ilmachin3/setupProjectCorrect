@@ -18,6 +18,8 @@
 		252A44CB2B928A0800C14A20 /* setupProjectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252A44CA2B928A0800C14A20 /* setupProjectUITests.swift */; };
 		252A44CD2B928A0800C14A20 /* setupProjectUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252A44CC2B928A0800C14A20 /* setupProjectUITestsLaunchTests.swift */; };
 		2567413A2B9A7AA300D50319 /* ImagesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256741392B9A7AA300D50319 /* ImagesListCell.swift */; };
+		2571138B2BAF451D004692E6 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2571138A2BAF451D004692E6 /* ProfileViewController.swift */; };
+		25BFBFCC2BB4D0C6004CB739 /* SingleImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BFBFCB2BB4D0C6004CB739 /* SingleImageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,8 @@
 		252A44CA2B928A0800C14A20 /* setupProjectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = setupProjectUITests.swift; sourceTree = "<group>"; };
 		252A44CC2B928A0800C14A20 /* setupProjectUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = setupProjectUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		256741392B9A7AA300D50319 /* ImagesListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListCell.swift; sourceTree = "<group>"; };
+		2571138A2BAF451D004692E6 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		25BFBFCB2BB4D0C6004CB739 /* SingleImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleImageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +110,8 @@
 				2567413B2B9A7AE700D50319 /* ImageList */,
 				252A44A62B9289FF00C14A20 /* AppDelegate.swift */,
 				252A44A82B9289FF00C14A20 /* SceneDelegate.swift */,
+				2571138A2BAF451D004692E6 /* ProfileViewController.swift */,
+				25BFBFCB2BB4D0C6004CB739 /* SingleImageViewController.swift */,
 				252A44AC2B9289FF00C14A20 /* Main.storyboard */,
 				252A44B22B928A0700C14A20 /* Assets.xcassets */,
 				252A44B42B928A0700C14A20 /* LaunchScreen.storyboard */,
@@ -272,8 +278,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2571138B2BAF451D004692E6 /* ProfileViewController.swift in Sources */,
 				252A44AB2B9289FF00C14A20 /* ImagesListViewController.swift in Sources */,
 				252A44B12B9289FF00C14A20 /* setupProject.xcdatamodeld in Sources */,
+				25BFBFCC2BB4D0C6004CB739 /* SingleImageViewController.swift in Sources */,
 				2567413A2B9A7AA300D50319 /* ImagesListCell.swift in Sources */,
 				252A44A72B9289FF00C14A20 /* AppDelegate.swift in Sources */,
 				252A44A92B9289FF00C14A20 /* SceneDelegate.swift in Sources */,
