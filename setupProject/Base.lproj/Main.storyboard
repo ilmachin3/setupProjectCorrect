@@ -134,23 +134,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="271" height="352"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kTc-M5-5Li">
-                                        <rect key="frame" x="171" y="711" width="50" height="50"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="7Fl-oX-jI6"/>
-                                            <constraint firstAttribute="width" constant="50" id="tbY-IA-TK1"/>
-                                        </constraints>
-                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" image="Сircle"/>
-                                        <connections>
-                                            <action selector="didTapShareButton:" destination="KbV-ar-Pib" eventType="touchUpInside" id="RH9-1o-9yS"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstItem="kTc-M5-5Li" firstAttribute="top" secondItem="vMS-Tk-juc" secondAttribute="top" constant="711" id="AmY-fm-2Jc"/>
-                                    <constraint firstItem="kTc-M5-5Li" firstAttribute="leading" secondItem="vMS-Tk-juc" secondAttribute="leading" constant="171" id="z8r-iz-Hpl"/>
-                                </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="mlC-aQ-7pC"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="vMS-Tk-juc"/>
                                 <connections>
@@ -169,6 +153,18 @@
                                     <action selector="didTapBackButton:" destination="KbV-ar-Pib" eventType="touchUpInside" id="zKt-Kz-1vy"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kTc-M5-5Li">
+                                <rect key="frame" x="171.66666666666666" y="785" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="7Fl-oX-jI6"/>
+                                    <constraint firstAttribute="width" constant="50" id="tbY-IA-TK1"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="Сircle"/>
+                                <connections>
+                                    <action selector="didTapShareButton:" destination="KbV-ar-Pib" eventType="touchUpInside" id="RH9-1o-9yS"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="XgY-AS-moL"/>
                         <color key="backgroundColor" red="0.1019607843" green="0.1058823529" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
@@ -177,6 +173,8 @@
                             <constraint firstItem="jbW-Lg-MsQ" firstAttribute="leading" secondItem="XgY-AS-moL" secondAttribute="leading" id="5Lr-zz-UdU"/>
                             <constraint firstAttribute="bottom" secondItem="jbW-Lg-MsQ" secondAttribute="bottom" id="DXN-uC-brb"/>
                             <constraint firstItem="XgY-AS-moL" firstAttribute="trailing" secondItem="jbW-Lg-MsQ" secondAttribute="trailing" id="MVL-qn-LYI"/>
+                            <constraint firstItem="kTc-M5-5Li" firstAttribute="centerX" secondItem="XgY-AS-moL" secondAttribute="centerX" id="ZnX-Eg-Nv9"/>
+                            <constraint firstItem="XgY-AS-moL" firstAttribute="bottom" secondItem="kTc-M5-5Li" secondAttribute="bottom" constant="17" id="fGE-Py-7va"/>
                             <constraint firstItem="8M5-im-bNa" firstAttribute="top" secondItem="XgY-AS-moL" secondAttribute="top" constant="9" id="fVQ-eD-lnc"/>
                             <constraint firstItem="8M5-im-bNa" firstAttribute="leading" secondItem="XgY-AS-moL" secondAttribute="leading" constant="9" id="t4I-sj-wzj"/>
                         </constraints>
