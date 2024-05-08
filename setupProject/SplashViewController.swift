@@ -17,8 +17,6 @@ final class SplashViewController: UIViewController {
             performSegue(withIdentifier: ShowAuthenticationScreenSegueIdentifier, sender: nil)
         }
     }
-
-    // MARK: - Overrides funcs
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

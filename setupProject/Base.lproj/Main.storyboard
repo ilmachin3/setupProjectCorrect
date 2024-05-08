@@ -16,10 +16,26 @@
                     <view key="view" contentMode="scaleToFill" id="MDr-gh-dgZ">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="75" verticalHuggingPriority="77" image="Vector" translatesAutoresizingMaskIntoConstraints="NO" id="sUj-Kg-tcJ">
+                                <rect key="frame" x="159" y="367" width="75" height="76"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="76" id="7RL-ib-xSz"/>
+                                    <constraint firstAttribute="width" constant="75" id="g1w-um-V06"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="qZc-t6-U2y"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="0.10196078431372549" green="0.10588235294117647" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="sUj-Kg-tcJ" firstAttribute="centerX" secondItem="qZc-t6-U2y" secondAttribute="centerX" id="ENP-Cv-d6D"/>
+                            <constraint firstItem="sUj-Kg-tcJ" firstAttribute="top" secondItem="MDr-gh-dgZ" secondAttribute="top" constant="367" id="wAA-34-ZyS"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="hwA-Uj-RE1"/>
+                    <connections>
+                        <segue destination="ouB-2f-oRO" kind="presentation" identifier="ShowAuthenticationScreen" modalPresentationStyle="fullScreen" id="0sN-rS-r97"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kMD-x6-nGh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -363,7 +379,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ouB-2f-oRO" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="IUj-Ac-hei">
-                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -382,6 +398,7 @@
         <image name="Active" width="75" height="49"/>
         <image name="Backward" width="24" height="24"/>
         <image name="Logo_of_Unsplash" width="60" height="60"/>
+        <image name="Vector" width="73" height="76"/>
         <image name="chevron.backward" width="9" height="16"/>
         <image name="like_button_on" width="42" height="42"/>
         <image name="user_active" width="75" height="49"/>
