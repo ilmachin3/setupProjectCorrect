@@ -21,20 +21,20 @@ final class AuthViewController: UIViewController {
 
     // MARK: - Extension
 
-    extension AuthViewController: WebViewControllerDelegate {
-        func webViewViewController(_ vc: WebViewController, didAuthenticateWithCode code: String) {
-            OAuth2Service.shared.fetchOAuthToken(code) { [weak self] result in
-                guard let self = self else { return }
-                switch result {
-                case .success:
-                    self.delegate?.authViewController(self, didAuthenticateWithCode: code)
-                case .failure:
-                    break
-                }
+
+extension AuthViewController: WebViewControllerDelegate {
+    func webViewViewController(_ vc: WebViewController, didAuthenticateWithCode code: String) {
+        OAuth2Service.shared.fetchOAuthToken(with: code) { result in
+            switch result {
+            case .success(let token):
+                print("Received access token: \(token)")
+                self.delegate?.authViewController(self, didAuthenticateWithCode: code)
+            case.failure(let error):
+                print("Error fetching access token: \(error)")
             }
         }
-
-        func webViewViewControllerDidCancel(_ vc: WebViewController) {
-            dismiss(animated: true)
-        }
     }
+    func webViewViewControllerDidCancel(_ vc: WebViewController) {
+        dismiss(animated: true)
+    }
+}

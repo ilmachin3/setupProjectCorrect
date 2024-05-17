@@ -7,6 +7,8 @@ import WebKit
 
 final class WebViewController: UIViewController {
     
+    weak var delegate: WebViewControllerDelegate?
+    
     @IBOutlet weak var webView: WKWebView!
     
     @IBOutlet private var progressView: UIProgressView!
@@ -15,8 +17,6 @@ final class WebViewController: UIViewController {
         static let unsplashAuthorizeURLString = "https://unsplash.com/oauth/authorize"
     }
 
-    weak var delegate: WebViewControllerDelegate?
-    
     override func viewWillAppear(_ animated: Bool) {
         webView.addObserver(
             self,
