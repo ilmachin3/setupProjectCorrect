@@ -3,6 +3,7 @@ import UIKit
 
 final class SplashViewController: UIViewController {
     
+    private let profileService = ProfileService.shared
     private let showAuthenticationScreenSegueIdentifier = "ShowAuthenticationScreen"
     private let oauth2Service = OAuth2Service.shared
     private let oauth2TokenStorage = OAuth2TokenStorage.shared
@@ -10,9 +11,11 @@ final class SplashViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
+        
+        
         if storage.token != nil {
             switchToTabBarController()
+            //fetchProfile(storage.token)
         } else {
             performSegue(withIdentifier: showAuthenticationScreenSegueIdentifier, sender: nil)
         }
@@ -70,5 +73,35 @@ extension SplashViewController: AuthViewControllerDelegate {
             }
         }
     }
+    
+    func didAuthenticate(_ vc: AuthViewController) {
+        vc.dismiss(animated: true)
+        
+        guard let token = oauth2TokenStorage.token else {
+            return
+        }     //?????????
+        fetchProfile(token)
+    }
+    
+    private func fetchProfile(_ token: String) {
+        UIBlockingProgressHUD.show()
+        ProfileService.shared.fetchProfile(token) { [weak self] result in
+            UIBlockingProgressHUD.dismiss() // ?
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let profile):
+                DispatchQueue.main.async {
+                    self.switchToTabBarController()
+                    // self.fetchProfileImage(profile.username)
+                }
+            case .failure (let error):
+                print("[SplashViewController]: Error fetching profile - \(error)")
+            }
+        }
+    }
+    private func fetchProfileImage(_ username: String) {
+            ProfileImageService.shared.fetchProfileImageURL(username: username) {_ in }
+        }
 }
 

@@ -1,30 +1,40 @@
 
+import ProgressHUD
 import UIKit
+
 
 final class AuthViewController: UIViewController {
     
     private let oauth2service = OAuth2Service.shared
     private let ShowWebViewSegueIdentifier = "ShowWebView"
     weak var delegate: AuthViewControllerDelegate?
-
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-            if segue.identifier == ShowWebViewSegueIdentifier {
-                guard
-                    let webViewViewController = segue.destination as? WebViewController
-                else { fatalError("Failed to prepare for \(ShowWebViewSegueIdentifier)") }
-                webViewViewController.delegate = self
-            } else {
-                super.prepare(for: segue, sender: sender)
-            }
+        if segue.identifier == ShowWebViewSegueIdentifier {
+            guard
+                let webViewViewController = segue.destination as? WebViewController
+            else { fatalError("Failed to prepare for \(ShowWebViewSegueIdentifier)") }
+            webViewViewController.delegate = self
+        } else {
+            super.prepare(for: segue, sender: sender)
         }
     }
+    private func showAlert() {
+        let alertController = UIAlertController(title: "Что-то пошло не так(", message: "Не удалось войти в систему", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
+    }
+}
 
     // MARK: - Extension
 
 
 extension AuthViewController: WebViewControllerDelegate {
     func webViewViewController(_ vc: WebViewController, didAuthenticateWithCode code: String) {
+        UIBlockingProgressHUD.show()
         OAuth2Service.shared.fetchOAuthToken(with: code) { result in
+            UIBlockingProgressHUD.dismiss()
             switch result {
             case .success(let token):
                 print("Received access token: \(token)")

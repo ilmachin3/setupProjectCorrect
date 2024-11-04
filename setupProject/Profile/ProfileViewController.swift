@@ -2,23 +2,78 @@
 
 import UIKit
 
+import Kingfisher
+
 final class ProfileViewController: UIViewController {
 
-        private let profileImageView = UIImageView()
-        private let nameLabel = UILabel()
-        private let usernameLabel = UILabel()
-        private let descriptionLabel = UILabel()
-        private let logoutButton = UIButton()
+    let profileService = ProfileService.shared
+    private var profileImageServiceObserver: NSObjectProtocol?
+    
+    private let profileImageView = UIImageView()
+    private let nameLabel = UILabel()
+    private let usernameLabel = UILabel()
+    private let descriptionLabel = UILabel()
+    private let logoutButton = UIButton()
+    private var imageView: UIImageView!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
-        override func viewDidLoad() {
-            super.viewDidLoad()
-            
-            startSetupProfileImage()
-            startSetupNameProfile()
-            startSetupTagNameProfile()
-            startSetupDescriptionProfile()
-            startSetupExitButton()
+        startSetupProfileImage()
+        startSetupNameProfile()
+        startSetupTagNameProfile()
+        startSetupDescriptionProfile()
+        startSetupExitButton()
+        
+        if let profile = profileService.profile {
+            updateProfileDetails(profile)
         }
+        //можно завернуть в отдельную функцию
+        profileImageServiceObserver = NotificationCenter.default    // 2
+            .addObserver(
+                forName: ProfileImageService.didChangeNotification, // 3
+                object: nil,                                        // 4
+                queue: .main                                        // 5
+            ) { [weak self] _ in
+                guard let self = self else { return }
+                self.updateAvatar()                                 // 6
+            }
+        updateAvatar()                                              // 7
+    }
+    
+    
+    private func updateAvatar() {                                   // 8
+            guard
+                let profileImageURL = ProfileImageService.shared.avatarURL,
+                let url = URL(string: profileImageURL)
+            else { return }
+            
+        imageView.kf.indicatorType = .activity
+        imageView.kf.setImage(
+            with: url,
+            placeholder: nil,
+            options: [
+                .transition(.fade(0.5))
+            ],
+            completionHandler: { result in
+                switch result {
+                case .success(_):
+                    self.imageView.layer.cornerRadius = 35
+                    self.imageView.layer.masksToBounds = true
+                    break
+                case .failure(let error):
+                    print("Failed to load Image: \(error)")
+                }
+            }
+        )
+    }
+    
+    //Нужно ли добавить вывод ошибок в консоль 
+    private func updateProfileDetails(_ profile: ProfileService.Profile) {
+        nameLabel.text = profile.name
+        usernameLabel.text = profile.loginName
+        descriptionLabel.text = profile.bio ?? ""
+    }
         
         private func startSetupProfileImage() {
             profileImageView.translatesAutoresizingMaskIntoConstraints = false
