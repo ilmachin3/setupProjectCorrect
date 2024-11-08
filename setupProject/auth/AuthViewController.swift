@@ -1,7 +1,10 @@
+//
+//  ProfileService.swift
+//  setupProject
+//
+//  Created by Илья Дышлюк on 31.05.2024.
 
-import ProgressHUD
 import UIKit
-
 
 final class AuthViewController: UIViewController {
     
@@ -28,7 +31,6 @@ final class AuthViewController: UIViewController {
 }
 
     // MARK: - Extension
-
 
 extension AuthViewController: WebViewControllerDelegate {
     func webViewViewController(_ vc: WebViewController, didAuthenticateWithCode code: String) {

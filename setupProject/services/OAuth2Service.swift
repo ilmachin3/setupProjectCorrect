@@ -1,3 +1,9 @@
+//
+//  OAuthToken..swift
+//  setupProject
+//
+//  Created by Илья Дышлюк on 02.05.2024.
+//
 
 import Foundation
 
@@ -12,20 +18,12 @@ enum OAuthRequestError: Error {
 final class OAuth2Service {
     
     static let shared = OAuth2Service()
+    private init() {}
     
-    private init(){}
+    private var task: URLSessionTask?
+    private var lastCode: String?
     
-    private let urlSession = URLSession.shared
-    
-    private (set) var authToken: String? {
-        get {
-            return OAuth2TokenStorage.shared.token
-        }
-        set {
-            OAuth2TokenStorage.shared.token = newValue
-        }
-    }
-    // 11 2-4 надо доделать 
+    // 11 2-4 надо доделать
     func fetchOAuthToken(with code: String, completion: @escaping (Result<String, Error>) -> Void) {
         print("Requesting OAuth token with authorization code: \(code)")
         
@@ -56,7 +54,7 @@ final class OAuth2Service {
         }.resume()
     }
     
-    func makeOAuthTokenRequest(code: String) -> URLRequest? { //Создает и возвращает URLRequest для запроса на получение авторизационного токена
+    func makeOAuthTokenRequest(code: String) -> URLRequest? {
         guard let baseURL = URL(string: "https://unsplash.com/oauth/token"),
               var components = URLComponents(url: baseURL, resolvingAgainstBaseURL: true) else {
             let urlComponentsError = OAuthRequestError.urlComponentError
@@ -84,30 +82,30 @@ final class OAuth2Service {
     }
 }
 
-private extension OAuth2Service {
-    
-    private func object(for request: URLRequest, completion: @escaping (Result<OAuthTokenBody, Error>) -> Void) -> URLSessionTask {
-        let decoder = JSONDecoder()
-        return urlSession.data(for: request) { (result: Result<Data, Error>) in
-            let response = result.flatMap {data -> Result<OAuthTokenBody, Error> in
-                Result { try decoder.decode(OAuthTokenBody.self, from: data) }
-            }
-            completion(response)
-        }
-    }
-    
-    private func authTokenRequest(code: String) -> URLRequest? {
-        guard let baseURL = URL(string: "https://unsplash.com") else {
-            fatalError("Base URL could not be initialized")
-        }
-
-        let path = "/oauth/token"
-            + "?client_id=\(Constants.AccessKey)"
-            + "&&client_secret=\(Constants.SecretKey)"
-            + "&&redirect_uri=\(Constants.RedirectURL)"
-            + "&&code=\(code)"
-            + "&&grant_type=authorization_code"
-
-        return URLRequest.makeHTTPRequest(path: path, httpMethod: "POST", baseURL: baseURL)
-    }
-}
+//private extension OAuth2Service {
+//    
+//    private func object(for request: URLRequest, completion: @escaping (Result<OAuthTokenBody, Error>) -> Void) -> URLSessionTask {
+//        let decoder = JSONDecoder()
+//        return urlSession.data(for: request) { (result: Result<Data, Error>) in
+//            let response = result.flatMap {data -> Result<OAuthTokenBody, Error> in
+//                Result { try decoder.decode(OAuthTokenBody.self, from: data) }
+//            }
+//            completion(response)
+//        }
+//    }
+//    
+//    private func authTokenRequest(code: String) -> URLRequest? {
+//        guard let baseURL = URL(string: "https://unsplash.com") else {
+//            fatalError("Base URL could not be initialized")
+//        }
+//
+//        let path = "/oauth/token"
+//            + "?client_id=\(Constants.AccessKey)"
+//            + "&&client_secret=\(Constants.SecretKey)"
+//            + "&&redirect_uri=\(Constants.RedirectURL)"
+//            + "&&code=\(code)"
+//            + "&&grant_type=authorization_code"
+//
+//        return URLRequest.makeHTTPRequest(path: path, httpMethod: "POST", baseURL: baseURL)
+//    }
+//}

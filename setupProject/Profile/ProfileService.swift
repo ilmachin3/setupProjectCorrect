@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit
 
 enum ProfileServiceError: Error {
     case invalidURL
@@ -18,32 +17,63 @@ final class ProfileService {
     
     private(set) var profile: Profile?
     static let shared = ProfileService()
+    
     private init() {}
     
     private var task: URLSessionTask?
     
     struct ProfileResult: Codable {
         let id: String
-        let updated_at: String
+        let updatedAt: String
         let username: String
-        let first_name: String
-        let last_name: String
-        let twitter_username: String
-        let portfolio_url: URL?
-        let bio: String
-        let location: String
-        let total_likes: Int
-        let total_photos: Int
-        let total_collections: Int
-        let followed_by_user: Bool
+        let firstName: String?
+        let lastName: String?
+        let twitterUsername: String?
+        let portfolioURL: URL?
+        let bio: String?
+        let location: String?
+        let totalLikes: Int
+        let totalPhotos: Int
+        let totalCollections: Int
+        let followedByUser: Bool
         let downloads: Int
+        
+        enum CodingKeys: String, CodingKey {
+            case id
+            case updatedAt = "updated_at"
+            case username
+            case firstName = "first_name"
+            case lastName = "last_name"
+            case twitterUsername = "twitter_username"
+            case portfolioURL = "portfolio_url"
+            case bio
+            case location
+            case totalLikes = "total_likes"
+            case totalPhotos = "total_photos"
+            case totalCollections = "total_collections"
+            case followedByUser = "followed_by_user"
+            case downloads
+        }
+        
+        var updatedAtDate: Date? {
+            let dateFormatter = ISO8601DateFormatter()
+            dateFormatter.formatOptions = [.withInternetDateTime]
+            return dateFormatter.date(from: updatedAt)
+        }
     }
     
     struct Profile {
-        let username: String
+        let userName: String
         let name: String
         let loginName: String
-        let bio: String
+        let bio: String?
+        
+        init(userName: String, name: String, loginName: String, bio: String?) {
+            self.userName = userName
+            self.name = name
+            self.loginName = loginName
+            self.bio = bio
+        }
     }
     
     private func makeUrlRequest(endpoint: String, bearerToken: String) -> URLRequest? {
@@ -76,8 +106,8 @@ final class ProfileService {
             switch result {
             case.success(let profileResult):
                 let profile = Profile(
-                    username: profileResult.username,
-                    name: "\(profileResult.first_name ?? "") \(profileResult.last_name ?? "")".trimmingCharacters(in: .whitespacesAndNewlines),
+                    userName: profileResult.username,
+                    name: "\(profileResult.firstName ?? "") \(profileResult.lastName ?? "")".trimmingCharacters(in: .whitespacesAndNewlines),
                     loginName: "@\(profileResult.username)",
                     bio: profileResult.bio)
                 self.profile = profile
