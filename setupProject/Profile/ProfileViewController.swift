@@ -79,17 +79,25 @@ final class ProfileViewController: UIViewController {
     }
     
     private func addLogoutButton() {
+        guard let logoutImage = UIImage(systemName: "ipad.and.arrow.forward") else {
+            return
+        }
+
         let logoutButton = UIButton.systemButton(
-            with: UIImage(systemName: "ipad.and.arrow.forward")!,
+            with: logoutImage,
             target: self,
-            action: #selector(self.didTapButton))
-        
+            action: #selector(self.didTapButton)
+        )
+
         logoutButton.tintColor = .ypRed
         logoutButton.translatesAutoresizingMaskIntoConstraints = false
+
         view.addSubview(logoutButton)
-        
-        logoutButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
-        logoutButton.centerYAnchor.constraint(equalTo: imageView.centerYAnchor).isActive = true
+
+        NSLayoutConstraint.activate([
+            logoutButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            logoutButton.centerYAnchor.constraint(equalTo: imageView.centerYAnchor)
+        ])
     }
     
     private func observeProfileImageChanges() {

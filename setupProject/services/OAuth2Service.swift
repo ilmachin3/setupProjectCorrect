@@ -40,7 +40,10 @@ final class OAuth2Service {
             switch result {
             case .success(let decodedResponse):
                 let accessToken = decodedResponse.accessToken
-                OAuth2TokenStorage.shared.token = accessToken
+                // Синхронизация доступа к OAuth2TokenStorage.shared.token
+                DispatchQueue.main.sync {
+                    OAuth2TokenStorage.shared.token = accessToken
+                }
                 DispatchQueue.main.async {
                     completion(.success(accessToken))
                 }
@@ -81,31 +84,3 @@ final class OAuth2Service {
         return request
     }
 }
-
-//private extension OAuth2Service {
-//    
-//    private func object(for request: URLRequest, completion: @escaping (Result<OAuthTokenBody, Error>) -> Void) -> URLSessionTask {
-//        let decoder = JSONDecoder()
-//        return urlSession.data(for: request) { (result: Result<Data, Error>) in
-//            let response = result.flatMap {data -> Result<OAuthTokenBody, Error> in
-//                Result { try decoder.decode(OAuthTokenBody.self, from: data) }
-//            }
-//            completion(response)
-//        }
-//    }
-//    
-//    private func authTokenRequest(code: String) -> URLRequest? {
-//        guard let baseURL = URL(string: "https://unsplash.com") else {
-//            fatalError("Base URL could not be initialized")
-//        }
-//
-//        let path = "/oauth/token"
-//            + "?client_id=\(Constants.AccessKey)"
-//            + "&&client_secret=\(Constants.SecretKey)"
-//            + "&&redirect_uri=\(Constants.RedirectURL)"
-//            + "&&code=\(code)"
-//            + "&&grant_type=authorization_code"
-//
-//        return URLRequest.makeHTTPRequest(path: path, httpMethod: "POST", baseURL: baseURL)
-//    }
-//}

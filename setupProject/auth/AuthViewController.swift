@@ -14,10 +14,11 @@ final class AuthViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == ShowWebViewSegueIdentifier {
-            guard
-                let webViewViewController = segue.destination as? WebViewController
-            else { fatalError("Failed to prepare for \(ShowWebViewSegueIdentifier)") }
-            webViewViewController.delegate = self
+            guard let webViewController = segue.destination as? WebViewController else {
+                assertionFailure("failed to cast destination view controller to WebViewViewController")
+                return
+            }
+            webViewController.delegate = self
         } else {
             super.prepare(for: segue, sender: sender)
         }
@@ -35,17 +36,21 @@ final class AuthViewController: UIViewController {
 extension AuthViewController: WebViewControllerDelegate {
     func webViewViewController(_ vc: WebViewController, didAuthenticateWithCode code: String) {
         UIBlockingProgressHUD.show()
-        OAuth2Service.shared.fetchOAuthToken(with: code) { result in
-            UIBlockingProgressHUD.dismiss()
+        OAuth2Service.shared.fetchOAuthToken(with: code) { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let token):
                 print("Received access token: \(token)")
                 self.delegate?.authViewController(self, didAuthenticateWithCode: code)
+                UIBlockingProgressHUD.dismiss()
             case.failure(let error):
                 print("Error fetching access token: \(error)")
+                UIBlockingProgressHUD.dismiss()
+                self.showAlert()
             }
         }
     }
+    
     func webViewViewControllerDidCancel(_ vc: WebViewController) {
         dismiss(animated: true)
     }

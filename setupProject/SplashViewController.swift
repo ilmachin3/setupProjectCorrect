@@ -45,11 +45,16 @@ final class SplashViewController: UIViewController {
     }
     
     private func navigateToAuthScreen() {
-            let authViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AuthViewController") as! AuthViewController
+        if let authViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AuthViewController") as? AuthViewController {
             authViewController.delegate = self
             authViewController.modalPresentationStyle = .fullScreen
             present(authViewController, animated: true, completion: nil)
+        } else {
+            // Обработка ошибок: AuthViewController не найден
+            print("Ошибка: Не удалось найти AuthViewController в Storyboard.")
         }
+        
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
