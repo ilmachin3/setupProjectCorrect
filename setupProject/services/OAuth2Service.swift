@@ -35,24 +35,19 @@ final class OAuth2Service {
             return
         }
         
-        // Выполняем запрос с помощью objectTask
         URLSession.shared.objectTask(for: request) { (result: Result<OAuthTokenBody, Error>) in
             switch result {
             case .success(let decodedResponse):
                 let accessToken = decodedResponse.accessToken
                 // Синхронизация доступа к OAuth2TokenStorage.shared.token
-                DispatchQueue.main.sync {
+                DispatchQueue.main.async {
                     OAuth2TokenStorage.shared.token = accessToken
                 }
-                DispatchQueue.main.async {
-                    completion(.success(accessToken))
-                }
+                completion(.success(accessToken))
             case .failure(let error):
-                DispatchQueue.main.async {
-                    completion(.failure(error))
-                    let decodingError = OAuthRequestError.decodingError(error)
-                    print("[OAuth2Service.fetchOAuthToken]: \(decodingError)")
-                }
+                completion(.failure(error))
+                let decodingError = OAuthRequestError.decodingError(error)
+                print("[OAuth2Service.fetchOAuthToken]: \(decodingError)")
             }
         }.resume()
     }
@@ -83,4 +78,5 @@ final class OAuth2Service {
         request.httpMethod = "POST"
         return request
     }
+    
 }

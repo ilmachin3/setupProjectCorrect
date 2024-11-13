@@ -29,6 +29,7 @@
 		259B469F2CDCE04300F96282 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259B469E2CDCE04300F96282 /* TabBarController.swift */; };
 		259DDEB22CD94A94003ABBC9 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 259DDEB12CD94A94003ABBC9 /* Kingfisher */; };
 		25A017A52CD94619003B78A0 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2571138A2BAF451D004692E6 /* ProfileViewController.swift */; };
+		25A277FC2CE4038C007C49A7 /* ImageListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A277FB2CE4038C007C49A7 /* ImageListService.swift */; };
 		25B915A22BFE945400E265C0 /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 25B915A12BFE945400E265C0 /* ProgressHUD */; };
 		25BCE7F52C03F33C00A309E5 /* UIBlockingProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BCE7F42C03F33C00A309E5 /* UIBlockingProgressHUD.swift */; };
 		25BFBFCC2BB4D0C6004CB739 /* SingleImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BFBFCB2BB4D0C6004CB739 /* SingleImageViewController.swift */; };
@@ -81,6 +82,7 @@
 		2571138A2BAF451D004692E6 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		25936EED2C0937C900A0E46D /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 		259B469E2CDCE04300F96282 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		25A277FB2CE4038C007C49A7 /* ImageListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListService.swift; sourceTree = "<group>"; };
 		25BCE7F42C03F33C00A309E5 /* UIBlockingProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBlockingProgressHUD.swift; sourceTree = "<group>"; };
 		25BFBFCB2BB4D0C6004CB739 /* SingleImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleImageViewController.swift; sourceTree = "<group>"; };
 		25C032EA2BE58EC3007BD6CF /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 		2567413B2B9A7AE700D50319 /* ImageList */ = {
 			isa = PBXGroup;
 			children = (
+				25A277FB2CE4038C007C49A7 /* ImageListService.swift */,
 				256741392B9A7AA300D50319 /* ImagesListCell.swift */,
 				252A44AA2B9289FF00C14A20 /* ImagesListViewController.swift */,
 			);
@@ -393,6 +396,7 @@
 				25648E752BE3F734008664F4 /* OAuth2TokenStorage.swift in Sources */,
 				2567413A2B9A7AA300D50319 /* ImagesListCell.swift in Sources */,
 				252A44A72B9289FF00C14A20 /* AppDelegate.swift in Sources */,
+				25A277FC2CE4038C007C49A7 /* ImageListService.swift in Sources */,
 				25C032EB2BE58EC3007BD6CF /* SplashViewController.swift in Sources */,
 				25648E712BE2E6B7008664F4 /* URLSession+data.swift in Sources */,
 				252A44A92B9289FF00C14A20 /* SceneDelegate.swift in Sources */,
