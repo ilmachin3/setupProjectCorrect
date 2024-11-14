@@ -18,6 +18,10 @@ enum OAuthRequestError: Error {
     case invalidData
 }
 
+enum AuthServiceError: Error {
+    case invalidRequest
+}
+
 final class OAuth2Service {
     
     static let shared = OAuth2Service()
@@ -25,6 +29,7 @@ final class OAuth2Service {
     
     private var task: URLSessionTask?
     private var lastCode: String?
+    private let urlSession = URLSession.shared
     
 //    func fetchOAuthToken(with code: String, completion: @escaping (Result<String, Error>) -> Void) {
 //        print("Requesting OAuth token with authorization code: \(code)")
@@ -51,41 +56,52 @@ final class OAuth2Service {
 //            }
 //        }.resume()
 //    }
-    func fetchOAuthToken(with code: String, completion: @escaping (Result<String, OAuthRequestError>) -> Void) {
-        print("Requesting OAuth token with authorization code: \(code)")
-        guard let request = makeOAuthTokenRequest(code: code) else {
-            let urlRequestError = OAuthRequestError.urlRequestError(NSError(domain: "OAuth2Service", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to create URL request"]))
-            print("[fetchOAuthToken]: OAuthRequestError \(urlRequestError)")
-            completion(.failure(urlRequestError))
+    func fetchOAuthToken(_ code: String, completion: @escaping (Result<String, Error>) -> Void) {
+        assert(Thread.isMainThread) // Проверка потока, убедитесь, что вызывается на главном
+        guard lastCode != code else {
+            completion(.failure(AuthServiceError.invalidRequest))
             return
         }
-        let queue = DispatchQueue(label: "com.yourcompany.OAuthTokenStorageQueue")
-
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            if let error = error {
-                completion(.failure(.urlSessionError(error)))
-                return
+        task?.cancel()
+        lastCode = code
+        DispatchQueue.main.async {
+            UIBlockingProgressHUD.show()
+        }
+        
+        guard let request = makeOAuthTokenRequest(code: code) else {
+            DispatchQueue.main.async {
+                completion(.failure(AuthServiceError.invalidRequest))
+                UIBlockingProgressHUD.dismiss()
             }
-            guard let data = data, let response = response as? HTTPURLResponse, (200..<300).contains(response.statusCode) else {
-                if let errorResponse = response as? HTTPURLResponse {
-                    completion(.failure(.invalidResponse(errorResponse.statusCode)))
-                } else {
-                    completion(.failure(.invalidData))
+            return
+        }
+        let task = urlSession.dataTask(with: request) { [weak self] data, response, error in
+            DispatchQueue.main.async {
+                UIBlockingProgressHUD.dismiss()
+                if let error = error {
+                    completion(.failure(error))
+                    return
                 }
-                return
-            }
-            do {
-                let decodedResponse = try JSONDecoder().decode(OAuthTokenBody.self, from: data)
-                let accessToken = decodedResponse.accessToken
-
-                queue.sync {
-                    OAuth2TokenStorage.shared.token = accessToken
+                if let httpResponse = response as? HTTPURLResponse, !(200...299).contains(httpResponse.statusCode) {
+                    completion(.failure(NetworkError.httpStatusCode(httpResponse.statusCode)))
+                    return
                 }
-                completion(.success(accessToken))
-            } catch let decodingError {
-                completion(.failure(.decodingError(decodingError)))
+                guard let data = data else {
+                    completion(.failure(NetworkError.noData))
+                    return
+                }
+                do {
+                    let tokenResponse = try JSONDecoder().decode(OAuthTokenBody.self, from: data)
+                    completion(.success(tokenResponse.accessToken))
+                } catch {
+                    completion(.failure(error))
+                }
+                self?.task = nil
+                self?.lastCode = nil
             }
-        }.resume()
+        }
+        self.task = task
+        task.resume()
     }
     
     func makeOAuthTokenRequest(code: String) -> URLRequest? {
