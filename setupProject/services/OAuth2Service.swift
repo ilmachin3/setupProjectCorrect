@@ -31,74 +31,35 @@ final class OAuth2Service {
     private var lastCode: String?
     private let urlSession = URLSession.shared
     
-//    func fetchOAuthToken(with code: String, completion: @escaping (Result<String, Error>) -> Void) {
-//        print("Requesting OAuth token with authorization code: \(code)")
-//        
-//        // Создаем запрос на получение токена
-//        guard let request = makeOAuthTokenRequest(code: code) else {
-//            let urlRequestError = OAuthRequestError.urlRequestError(NSError(domain: "OAuth2Service", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to create URL request"]))
-//            print("[fetchOAuthToken]: OAuthRequestError \(urlRequestError)")
-//            completion(.failure(urlRequestError))
-//            return
-//        }
-//        
-//        URLSession.shared.objectTask(for: request) { (result: Result<OAuthTokenBody, Error>) in
-//            switch result {
-//            case .success(let decodedResponse):
-//                let accessToken = decodedResponse.accessToken
-//                // Синхронизация доступа к OAuth2TokenStorage.shared.token
-//                OAuth2TokenStorage.shared.token = accessToken
-//                completion(.success(accessToken))
-//            case .failure(let error):
-//                completion(.failure(error))
-//                let decodingError = OAuthRequestError.decodingError(error)
-//                print("[OAuth2Service.fetchOAuthToken]: \(decodingError)")
-//            }
-//        }.resume()
-//    }
-    func fetchOAuthToken(_ code: String, completion: @escaping (Result<String, Error>) -> Void) {
-        assert(Thread.isMainThread) // Проверка потока, убедитесь, что вызывается на главном
-        guard lastCode != code else {
-            completion(.failure(AuthServiceError.invalidRequest))
+    func fetchOAuthToken(with code: String, completion: @escaping (Result<String, Error>) -> Void) {
+        assert(Thread.isMainThread)
+        print("Requesting OAuth token with authorization code: \(code)")
+        
+        // Создаем запрос на получение токена
+        guard let request = makeOAuthTokenRequest(code: code) else {
+            let urlRequestError = OAuthRequestError.urlRequestError(NSError(domain: "OAuth2Service", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to create URL request"]))
+            print("[fetchOAuthToken]: OAuthRequestError \(urlRequestError)")
+            completion(.failure(urlRequestError))
             return
         }
-        task?.cancel()
-        lastCode = code
-        DispatchQueue.main.async {
-            UIBlockingProgressHUD.show()
+        if let task = self.task {
+            task.cancel()
         }
         
-        guard let request = makeOAuthTokenRequest(code: code) else {
-            DispatchQueue.main.async {
-                completion(.failure(AuthServiceError.invalidRequest))
-                UIBlockingProgressHUD.dismiss()
+        let task = URLSession.shared.objectTask(for: request) { (result: Result<OAuthTokenBody, Error>) in
+            
+            switch result {
+            case .success(let decodedResponse):
+                let accessToken = decodedResponse.accessToken
+                // Синхронизация доступа к OAuth2TokenStorage.shared.token
+                OAuth2TokenStorage.shared.token = accessToken
+                completion(.success(accessToken))
+            case .failure(let error):
+                completion(.failure(error))
+                let decodingError = OAuthRequestError.decodingError(error)
+                print("[OAuth2Service.fetchOAuthToken]: \(decodingError)")
             }
-            return
-        }
-        let task = urlSession.dataTask(with: request) { [weak self] data, response, error in
-            DispatchQueue.main.async {
-                UIBlockingProgressHUD.dismiss()
-                if let error = error {
-                    completion(.failure(error))
-                    return
-                }
-                if let httpResponse = response as? HTTPURLResponse, !(200...299).contains(httpResponse.statusCode) {
-                    completion(.failure(NetworkError.httpStatusCode(httpResponse.statusCode)))
-                    return
-                }
-                guard let data = data else {
-                    completion(.failure(NetworkError.noData))
-                    return
-                }
-                do {
-                    let tokenResponse = try JSONDecoder().decode(OAuthTokenBody.self, from: data)
-                    completion(.success(tokenResponse.accessToken))
-                } catch {
-                    completion(.failure(error))
-                }
-                self?.task = nil
-                self?.lastCode = nil
-            }
+            
         }
         self.task = task
         task.resume()
