@@ -34,7 +34,21 @@ final class OAuth2Service {
     func fetchOAuthToken(with code: String, completion: @escaping (Result<String, Error>) -> Void) {
         assert(Thread.isMainThread)
         print("Requesting OAuth token with authorization code: \(code)")
-        
+        if task != nil {                                    // 5
+            if lastCode != code {                           // 6
+                task?.cancel()                              // 7
+            } else {
+                completion(.failure(AuthServiceError.invalidRequest))
+                return                                      // 8
+            }
+        } else {
+            if lastCode == code {                           // 9
+                completion(.failure(AuthServiceError.invalidRequest))
+                return
+            }
+        }
+        //task?.cancel()
+        lastCode = code
         // Создаем запрос на получение токена
         guard let request = makeOAuthTokenRequest(code: code) else {
             let urlRequestError = OAuthRequestError.urlRequestError(NSError(domain: "OAuth2Service", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to create URL request"]))
@@ -42,22 +56,24 @@ final class OAuth2Service {
             completion(.failure(urlRequestError))
             return
         }
-        if let task = self.task {
-            task.cancel()
-        }
-        
+        //if let task = self.task {
+        //task.cancel()
+        //}
         let task = URLSession.shared.objectTask(for: request) { (result: Result<OAuthTokenBody, Error>) in
-            
-            switch result {
-            case .success(let decodedResponse):
-                let accessToken = decodedResponse.accessToken
-                // Синхронизация доступа к OAuth2TokenStorage.shared.token
-                OAuth2TokenStorage.shared.token = accessToken
-                completion(.success(accessToken))
-            case .failure(let error):
-                completion(.failure(error))
-                let decodingError = OAuthRequestError.decodingError(error)
-                print("[OAuth2Service.fetchOAuthToken]: \(decodingError)")
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let decodedResponse):
+                    let accessToken = decodedResponse.accessToken
+                    // Синхронизация доступа к OAuth2TokenStorage.shared.token
+                    OAuth2TokenStorage.shared.token = accessToken
+                    completion(.success(accessToken))
+                case .failure(let error):
+                    completion(.failure(error))
+                    let decodingError = OAuthRequestError.decodingError(error)
+                    print("[OAuth2Service.fetchOAuthToken]: \(decodingError)")
+                }
+                self.task = nil
+                self.lastCode = nil
             }
             
         }
