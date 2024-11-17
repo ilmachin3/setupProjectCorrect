@@ -34,20 +34,19 @@ final class OAuth2Service {
     func fetchOAuthToken(with code: String, completion: @escaping (Result<String, Error>) -> Void) {
         assert(Thread.isMainThread)
         print("Requesting OAuth token with authorization code: \(code)")
-        if task != nil {                                    // 5
-            if lastCode != code {                           // 6
-                task?.cancel()                              // 7
+        if task != nil {                             
+            if lastCode != code {
+                task?.cancel()
             } else {
                 completion(.failure(AuthServiceError.invalidRequest))
-                return                                      // 8
+                return
             }
         } else {
-            if lastCode == code {                           // 9
+            if lastCode == code {
                 completion(.failure(AuthServiceError.invalidRequest))
                 return
             }
         }
-        //task?.cancel()
         lastCode = code
         // Создаем запрос на получение токена
         guard let request = makeOAuthTokenRequest(code: code) else {
@@ -56,9 +55,6 @@ final class OAuth2Service {
             completion(.failure(urlRequestError))
             return
         }
-        //if let task = self.task {
-        //task.cancel()
-        //}
         let task = URLSession.shared.objectTask(for: request) { (result: Result<OAuthTokenBody, Error>) in
             DispatchQueue.main.async {
                 switch result {
