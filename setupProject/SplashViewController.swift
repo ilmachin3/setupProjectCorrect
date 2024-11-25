@@ -83,7 +83,7 @@ extension SplashViewController: AuthViewControllerDelegate {
     }
     
     private func fetchOAuthToken(_ code: String) {
-        oauth2Service.fetchOAuthToken(code) { [weak self] result in
+        oauth2Service.fetchOAuthToken(with: code) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success:
@@ -116,7 +116,7 @@ extension SplashViewController: AuthViewControllerDelegate {
                 DispatchQueue.main.async {
                     self.switchToTabBarController()
                     self.fetchProfileImage(profile.userName)
-                }
+               }
             case .failure (let error):
                 print("[SplashViewController]: Error fetching profile - \(error)")
             }

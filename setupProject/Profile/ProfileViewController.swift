@@ -79,25 +79,17 @@ final class ProfileViewController: UIViewController {
     }
     
     private func addLogoutButton() {
-        guard let logoutImage = UIImage(systemName: "ipad.and.arrow.forward") else {
-            return
-        }
-
         let logoutButton = UIButton.systemButton(
-            with: logoutImage,
+            with: UIImage(systemName: "ipad.and.arrow.forward")!,
             target: self,
-            action: #selector(self.didTapButton)
-        )
-
+            action: #selector(self.didTapButton))
+        
         logoutButton.tintColor = .ypRed
         logoutButton.translatesAutoresizingMaskIntoConstraints = false
-
         view.addSubview(logoutButton)
-
-        NSLayoutConstraint.activate([
-            logoutButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            logoutButton.centerYAnchor.constraint(equalTo: imageView.centerYAnchor)
-        ])
+        
+        logoutButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
+        logoutButton.centerYAnchor.constraint(equalTo: imageView.centerYAnchor).isActive = true
     }
     
     private func observeProfileImageChanges() {
@@ -154,9 +146,25 @@ final class ProfileViewController: UIViewController {
     }
     
     @objc
-    private func didTapButton() {
-        nameLabel.text = ""
-        usernameLabel.text = ""
-        descriptionLabel.text = ""
-    }
-}
+       private func didTapButton() {
+           
+           let alertController = UIAlertController(title: "Выход", message: "Вы уверены, что хотите выйти?", preferredStyle: .alert)
+           let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
+           alertController.addAction(cancelAction)
+           
+           let logoutAction = UIAlertAction(title: "Выход", style: .destructive) { [weak self] _ in
+               ProfileLogoutService.shared.logout()
+               self?.resetUI()
+           }
+           
+           alertController.addAction(logoutAction)
+           present(alertController, animated: true, completion: nil)
+       }
+       
+       private func resetUI() {
+           nameLabel.text = ""
+           usernameLabel.text = ""
+           descriptionLabel.text = ""
+           imageView.image = nil
+       }
+   }
