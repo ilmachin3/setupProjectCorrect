@@ -20,5 +20,5 @@ struct OAuthTokenBody: Decodable {
         case createdAt = "created_at"
     }
     
-    let url = URL(string: "https://api.unsplash.com/oauth/token")!
+    let url = URL(string: "https://api.unsplash.com/oauth/token")
 }

@@ -1,4 +1,9 @@
-
+//
+//  ProfileService.swift
+//  setupProject
+//
+//  Created by Илья Дышлюк on 31.05.2024.
+//
 import UIKit
 
 enum Constants{
@@ -7,5 +12,7 @@ enum Constants{
     static let RedirectURL = "urn:ietf:wg:oauth:2.0:oob"
     
     static let AccessScope = "public+read_user+write_likes"
-    static let DefaultBaseURL = URL(string: "https://api.unsplash.com")!
+    static var DefaultBaseURL: URL? {
+        return URL(string: "https://api.unsplash.com")
+    }
 }

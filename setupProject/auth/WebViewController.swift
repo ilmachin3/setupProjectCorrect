@@ -1,13 +1,17 @@
-
-
+//
+//  ProfileService.swift
+//  setupProject
+//
+//  Created by Илья Дышлюк on 31.05.2024.
+//
 import UIKit
 import WebKit
-
-
 
 final class WebViewController: UIViewController {
     
     weak var delegate: WebViewControllerDelegate?
+    
+    private var estimatedProgressObservation: NSKeyValueObservation?
     
     @IBOutlet weak var webView: WKWebView!
     
@@ -31,6 +35,14 @@ final class WebViewController: UIViewController {
         loadAuthView()
         updateProgress()
         webView.navigationDelegate = self
+        
+        estimatedProgressObservation = webView.observe(
+            \.estimatedProgress,
+             options: [],
+             changeHandler: { [weak self] _, _ in
+                 guard let self = self else { return }
+                 self.updateProgress()
+             })
     }
     
     override func viewDidDisappear(_ animated: Bool) {
