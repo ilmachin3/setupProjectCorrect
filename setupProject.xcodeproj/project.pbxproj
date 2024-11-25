@@ -91,6 +91,7 @@
 		2571138A2BAF451D004692E6 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		25936EED2C0937C900A0E46D /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 		259B469E2CDCE04300F96282 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		259C0B2F2CF5286800326F3C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		25A277FB2CE4038C007C49A7 /* ImageListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListService.swift; sourceTree = "<group>"; };
 		25BCE7F42C03F33C00A309E5 /* UIBlockingProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBlockingProgressHUD.swift; sourceTree = "<group>"; };
 		25BFBFCB2BB4D0C6004CB739 /* SingleImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleImageViewController.swift; sourceTree = "<group>"; };
@@ -523,6 +524,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				252A44AD2B9289FF00C14A20 /* Base */,
+				259C0B2F2CF5286800326F3C /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
