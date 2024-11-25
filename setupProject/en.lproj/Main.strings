@@ -1,0 +1,9 @@
+
+/* Class = "UIViewController"; title = "ImageList"; ObjectID = "BYZ-38-t0r"; */
+"BYZ-38-t0r.title" = "ImageList";
+
+/* Class = "UIButton"; configuration.title = "Войти"; ObjectID = "yBs-A2-LJ6"; */
+"yBs-A2-LJ6.configuration.title" = "Войти";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "yBs-A2-LJ6"; */
+"yBs-A2-LJ6.normalTitle" = "Button";
