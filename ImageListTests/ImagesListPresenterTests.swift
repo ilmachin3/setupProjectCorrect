@@ -2,34 +2,70 @@
 //  ImageListTests.swift
 //  ImageListTests
 //
-//  Created by Илья Дышлюк on 26.11.2024.
+//  Created by Илья Дышлюк on 21.11.2024.
 //
 
+@testable import setupProject
 import XCTest
 
-final class ImageListTests: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+class ImagesListPresenterTests: XCTestCase {
+    var presenter: ImagesListPresenter!
+    var spyView: ImagesListViewControllerSpy!
+    var mockService: MockImagesListService!
+    
+    override func setUp() {
+        super.setUp()
+        mockService = MockImagesListService()
+        presenter = ImagesListPresenter(imagesListService: mockService)
+        spyView = ImagesListViewControllerSpy()
+        presenter.setView(spyView)
     }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    
+    override func tearDown() {
+        mockService = nil
+        presenter = nil
+        spyView = nil
+        super.tearDown()
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    
+    func testViewDidLoad() {
+        presenter.viewDidLoad()
+        XCTAssertTrue(mockService.didFetchPhotosNextPage)
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        measure {
-            // Put the code you want to measure the time of here.
+    
+    func testDidSelectPhoto() {
+        let indexPath = IndexPath(row: 0, section: 0)
+        presenter.didSelectPhoto(at: indexPath)
+        XCTAssertTrue(spyView.performSegueCalled)
+        
+        // Создаю expectation для ожидания вызова метода performSegueToSingleImage
+        let expectation = XCTestExpectation(description: "performSegueToSingleImageCalled")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            // Проверяю, что метод performSegueToSingleImage был вызван
+            XCTAssertTrue(self.spyView.performSegueCalled)
+            // Фиксирую выполнение expectation
+            expectation.fulfill()
         }
+        // Жду выполнения expectation в течение 2 секунд
+        wait(for: [expectation], timeout: 2.0)
     }
+    
+    func testToggleLike() {
+        let indexPath = IndexPath(row: 0, section: 0)
+        presenter.toggleLike(for: indexPath)
+        XCTAssertTrue(mockService.didChangeLikeCalled)
 
+        // Создаю expectation для ожидания вызова метода updateCellLikeStatus
+        let expectation = XCTestExpectation(description: "updateCellLikeStatusCalled")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            // Проверяю, что метод updateCellLikeStatus был вызван
+            XCTAssertTrue(self.spyView.updateCellLikeStatusCalled)
+            // Фиксирую выполнение expectation
+            expectation.fulfill()
+        }
+        // Жду выполнения expectation в течение 2 секунд
+        wait(for: [expectation], timeout: 2.0)
+    }
 }

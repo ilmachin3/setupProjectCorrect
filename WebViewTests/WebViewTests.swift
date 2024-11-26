@@ -1,35 +1,86 @@
 //
-//  WebViewTests.swift
-//  WebViewTests
+//  ImageFeedTestsImage.swift
+//  ImageFeedTestsImage
 //
-//  Created by Илья Дышлюк on 26.11.2024.
+//  Created by Илья Дышлюк on 20.11.2024.
 //
 
+@testable import setupProject
 import XCTest
 
 final class WebViewTests: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    
+    func testViewControllerCallsViewDidLoad() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let viewController = WebViewController()
+        let presenter = WebViewPresenterSpy()
+        viewController.presenter = presenter
+        presenter.view = viewController
+        
+        _ = viewController.view
+        
+        XCTAssertTrue(presenter.viewDidLoadCalled)
     }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    
+    func testPresenterCallsLoadRequest() {
+        let viewController = WebViewViewControllerSpy()
+        let authHelper = AuthHelper()
+        let presenter = WebViewPresenter(authHelper: authHelper)
+        viewController.presenter = presenter
+        presenter.view = viewController
+        
+        presenter.viewDidLoad()
+        
+        XCTAssertTrue(viewController.loadRequestCalled)
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    
+    func testProgressVisibleWhenLessThenOne() {
+        let authHelper = AuthHelper()
+        let presenter = WebViewPresenter(authHelper: authHelper)
+        let progress: Float = 0.6
+        
+        let shouldHidePregress = presenter.shouldHideProgress(for: progress)
+        
+        XCTAssertFalse(shouldHidePregress)
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    func testProgressHiddenWhenOne() {
+        //given
+        let authHelper = AuthHelper()
+        let presenter = WebViewPresenter(authHelper: authHelper)
+        let progress: Float = 1.0
+        
+        //when
+        let shouldHideProgress = presenter.shouldHideProgress(for: progress)
+        
+        //then
+        XCTAssertTrue(shouldHideProgress)
     }
-
+    
+    func testAuthHelperAuthURL() {
+        //when
+        let configuration = AuthConfiguration.standard
+        let authHelper = AuthHelper(configuration: configuration)
+        
+        //given
+        let url = authHelper.authURL()
+        let urlString = url?.absoluteString
+        
+        //then
+        XCTAssertTrue(((urlString?.contains(configuration.authURLString)) != nil))
+        XCTAssertTrue(((urlString?.contains(configuration.accessKey)) != nil))
+        XCTAssertTrue(((urlString?.contains(configuration.redirectURI)) != nil))
+        XCTAssertTrue(((urlString?.contains("code")) != nil))
+        XCTAssertTrue(((urlString?.contains(configuration.accessScope)) != nil))
+    }
+    
+    func testCodeFromURL() {
+        var urlComponents = URLComponents(string: "https://unsplash.com/oauth/authorize/native")!
+        urlComponents.queryItems = [URLQueryItem(name: "code", value: "test code")]
+        let url = urlComponents.url!
+        let authHelper = AuthHelper()
+        
+        let code = authHelper.code(from: url)
+        XCTAssertEqual(code, "test code")
+    }
 }
