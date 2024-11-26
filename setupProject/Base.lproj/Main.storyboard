@@ -283,7 +283,6 @@
                     <navigationItem key="navigationItem" id="IWi-Ty-MrB"/>
                     <connections>
                         <outlet property="progressView" destination="1vp-OF-EgW" id="X8M-MR-6gf"/>
-                        <outlet property="progressViewAction" destination="1vp-OF-EgW" id="J8i-Cf-7aY"/>
                         <outlet property="webView" destination="bK6-s1-q3O" id="XbA-C0-nWH"/>
                     </connections>
                 </viewController>
