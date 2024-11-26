@@ -42,6 +42,7 @@
 		25F272E42CF5D5D1004430FD /* ProfileLogoutService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F272E32CF5D5D1004430FD /* ProfileLogoutService.swift */; };
 		25F272E62CF5D829004430FD /* WebViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F272E52CF5D829004430FD /* WebViewPresenter.swift */; };
 		25F272E82CF5D9A8004430FD /* AuthHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F272E72CF5D9A8004430FD /* AuthHelper.swift */; };
+		25F272EA2CF5DC8A004430FD /* ImagesListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F272E92CF5DC8A004430FD /* ImagesListPresenter.swift */; };
 		25F9939E2CEA4DE700455089 /* setupProjectServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F9939D2CEA4DE700455089 /* setupProjectServiceTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -107,6 +108,7 @@
 		25F272E32CF5D5D1004430FD /* ProfileLogoutService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileLogoutService.swift; sourceTree = "<group>"; };
 		25F272E52CF5D829004430FD /* WebViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewPresenter.swift; sourceTree = "<group>"; };
 		25F272E72CF5D9A8004430FD /* AuthHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthHelper.swift; sourceTree = "<group>"; };
+		25F272E92CF5DC8A004430FD /* ImagesListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListPresenter.swift; sourceTree = "<group>"; };
 		25F9939B2CEA4DE700455089 /* setupProjectTestsImage.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = setupProjectTestsImage.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		25F9939D2CEA4DE700455089 /* setupProjectServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = setupProjectServiceTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -247,6 +249,7 @@
 				25A277FB2CE4038C007C49A7 /* ImageListService.swift */,
 				256741392B9A7AA300D50319 /* ImagesListCell.swift */,
 				252A44AA2B9289FF00C14A20 /* ImagesListViewController.swift */,
+				25F272E92CF5DC8A004430FD /* ImagesListPresenter.swift */,
 			);
 			path = ImageList;
 			sourceTree = "<group>";
@@ -473,6 +476,7 @@
 				25C032EB2BE58EC3007BD6CF /* SplashViewController.swift in Sources */,
 				25648E712BE2E6B7008664F4 /* URLSession+data.swift in Sources */,
 				252A44A92B9289FF00C14A20 /* SceneDelegate.swift in Sources */,
+				25F272EA2CF5DC8A004430FD /* ImagesListPresenter.swift in Sources */,
 				25648E732BE3F710008664F4 /* OAuthTokenBody.swift in Sources */,
 				25071E072BD6923F00861B42 /* AuthViewController.swift in Sources */,
 				25936EEE2C0937C900A0E46D /* ProfileService.swift in Sources */,
