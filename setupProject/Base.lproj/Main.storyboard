@@ -225,6 +225,10 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ict-yN-AUF"/>
+                    <connections>
+                        <outlet property="imageView" destination="HqR-GR-zcx" id="Ob6-no-Epe"/>
+                        <outlet property="loginButton" destination="yBs-A2-LJ6" id="a3K-Lo-ZrD"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Khm-MT-0AX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

@@ -15,6 +15,9 @@ final class AuthViewController: UIViewController {
     
     weak var delegate: AuthViewControllerDelegate?
     
+    @IBOutlet weak var imageView: UIImageView!
+    
+    @IBOutlet weak var loginButton: UIButton!
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -36,6 +39,15 @@ final class AuthViewController: UIViewController {
      }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        loginButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(loginButton)
+        loginButton.backgroundColor = .white
+        loginButton.setTitleColor(.black, for: .normal)
+        loginButton.setTitle("Войти", for: .normal)
+        loginButton.titleLabel?.font = UIFont(name: "SF Pro Bold", size: 17)
+        loginButton.layer.cornerRadius = 16
+        loginButton.layer.masksToBounds = true
         
         configureBackButton()
         view.backgroundColor = .ypBlack
