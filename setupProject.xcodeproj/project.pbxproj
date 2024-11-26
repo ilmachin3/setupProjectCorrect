@@ -40,6 +40,8 @@
 		25F272E02CF5D1C9004430FD /* AuthConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F272DF2CF5D1C9004430FD /* AuthConfiguration.swift */; };
 		25F272E22CF5D287004430FD /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F272E12CF5D287004430FD /* ProfilePresenter.swift */; };
 		25F272E42CF5D5D1004430FD /* ProfileLogoutService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F272E32CF5D5D1004430FD /* ProfileLogoutService.swift */; };
+		25F272E62CF5D829004430FD /* WebViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F272E52CF5D829004430FD /* WebViewPresenter.swift */; };
+		25F272E82CF5D9A8004430FD /* AuthHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F272E72CF5D9A8004430FD /* AuthHelper.swift */; };
 		25F9939E2CEA4DE700455089 /* setupProjectServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F9939D2CEA4DE700455089 /* setupProjectServiceTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -103,6 +105,8 @@
 		25F272DF2CF5D1C9004430FD /* AuthConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthConfiguration.swift; sourceTree = "<group>"; };
 		25F272E12CF5D287004430FD /* ProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
 		25F272E32CF5D5D1004430FD /* ProfileLogoutService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileLogoutService.swift; sourceTree = "<group>"; };
+		25F272E52CF5D829004430FD /* WebViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewPresenter.swift; sourceTree = "<group>"; };
+		25F272E72CF5D9A8004430FD /* AuthHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthHelper.swift; sourceTree = "<group>"; };
 		25F9939B2CEA4DE700455089 /* setupProjectTestsImage.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = setupProjectTestsImage.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		25F9939D2CEA4DE700455089 /* setupProjectServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = setupProjectServiceTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -149,6 +153,8 @@
 				25071E092BD70BFE00861B42 /* WebViewController.swift */,
 				25C032EC2BE7C77B007BD6CF /* AuthViewControllerDelegate.swift */,
 				25C032EE2BE7C7E5007BD6CF /* WebVIewControllerDelegate.swift */,
+				25F272E52CF5D829004430FD /* WebViewPresenter.swift */,
+				25F272E72CF5D9A8004430FD /* AuthHelper.swift */,
 			);
 			path = auth;
 			sourceTree = "<group>";
@@ -462,6 +468,7 @@
 				25648E752BE3F734008664F4 /* OAuth2TokenStorage.swift in Sources */,
 				2567413A2B9A7AA300D50319 /* ImagesListCell.swift in Sources */,
 				252A44A72B9289FF00C14A20 /* AppDelegate.swift in Sources */,
+				25F272E82CF5D9A8004430FD /* AuthHelper.swift in Sources */,
 				25A277FC2CE4038C007C49A7 /* ImageListService.swift in Sources */,
 				25C032EB2BE58EC3007BD6CF /* SplashViewController.swift in Sources */,
 				25648E712BE2E6B7008664F4 /* URLSession+data.swift in Sources */,
@@ -471,6 +478,7 @@
 				25936EEE2C0937C900A0E46D /* ProfileService.swift in Sources */,
 				25C032ED2BE7C77B007BD6CF /* AuthViewControllerDelegate.swift in Sources */,
 				25C5BE692C1907F20057CB38 /* ProfileImageService.swift in Sources */,
+				25F272E62CF5D829004430FD /* WebViewPresenter.swift in Sources */,
 				25F272E02CF5D1C9004430FD /* AuthConfiguration.swift in Sources */,
 				259B469F2CDCE04300F96282 /* TabBarController.swift in Sources */,
 				25C032EF2BE7C7E5007BD6CF /* WebVIewControllerDelegate.swift in Sources */,
