@@ -61,9 +61,8 @@ final class ImagesListViewController: UIViewController , ImagesListViewControlle
     }
     
     private func setupTableView() {
-        guard let tableView = tableView else {
-            fatalError("tableView is nil")
-        }
+        assert(tableView != nil, "tableView неожиданно равен nil")
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
