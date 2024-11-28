@@ -32,8 +32,8 @@ final class WebViewController: UIViewController & WebViewViewControllerProtocol 
     private var estimatedProgressObservation: NSKeyValueObservation?
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
+        
         webView.accessibilityIdentifier = "UnsplashWebView"
         view.addSubview(webView)
         webView.translatesAutoresizingMaskIntoConstraints = false

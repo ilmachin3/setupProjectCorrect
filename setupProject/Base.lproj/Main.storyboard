@@ -244,7 +244,7 @@
         <!--Web View Controller-->
         <scene sceneID="e1R-P6-nEQ">
             <objects>
-                <viewController id="rIH-Q9-caI" customClass="WebViewController" customModule="setupProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WebViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="rIH-Q9-caI" customClass="WebViewController" customModule="setupProject" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fpp-ek-7XS">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
