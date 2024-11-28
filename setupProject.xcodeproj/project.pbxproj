@@ -34,8 +34,6 @@
 		25BCE7F52C03F33C00A309E5 /* UIBlockingProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BCE7F42C03F33C00A309E5 /* UIBlockingProgressHUD.swift */; };
 		25BFBFCC2BB4D0C6004CB739 /* SingleImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BFBFCB2BB4D0C6004CB739 /* SingleImageViewController.swift */; };
 		25C032EB2BE58EC3007BD6CF /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C032EA2BE58EC3007BD6CF /* SplashViewController.swift */; };
-		25C032ED2BE7C77B007BD6CF /* AuthViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C032EC2BE7C77B007BD6CF /* AuthViewControllerDelegate.swift */; };
-		25C032EF2BE7C7E5007BD6CF /* WebVIewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C032EE2BE7C7E5007BD6CF /* WebVIewControllerDelegate.swift */; };
 		25C5BE692C1907F20057CB38 /* ProfileImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C5BE682C1907F20057CB38 /* ProfileImageService.swift */; };
 		25F272E02CF5D1C9004430FD /* AuthConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F272DF2CF5D1C9004430FD /* AuthConfiguration.swift */; };
 		25F272E22CF5D287004430FD /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F272E12CF5D287004430FD /* ProfilePresenter.swift */; };
@@ -143,8 +141,6 @@
 		25BCE7F42C03F33C00A309E5 /* UIBlockingProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBlockingProgressHUD.swift; sourceTree = "<group>"; };
 		25BFBFCB2BB4D0C6004CB739 /* SingleImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleImageViewController.swift; sourceTree = "<group>"; };
 		25C032EA2BE58EC3007BD6CF /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
-		25C032EC2BE7C77B007BD6CF /* AuthViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewControllerDelegate.swift; sourceTree = "<group>"; };
-		25C032EE2BE7C7E5007BD6CF /* WebVIewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebVIewControllerDelegate.swift; sourceTree = "<group>"; };
 		25C5BE682C1907F20057CB38 /* ProfileImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageService.swift; sourceTree = "<group>"; };
 		25F272DF2CF5D1C9004430FD /* AuthConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthConfiguration.swift; sourceTree = "<group>"; };
 		25F272E12CF5D287004430FD /* ProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
@@ -243,8 +239,6 @@
 			children = (
 				25071E062BD6923F00861B42 /* AuthViewController.swift */,
 				25071E092BD70BFE00861B42 /* WebViewController.swift */,
-				25C032EC2BE7C77B007BD6CF /* AuthViewControllerDelegate.swift */,
-				25C032EE2BE7C7E5007BD6CF /* WebVIewControllerDelegate.swift */,
 				25F272E52CF5D829004430FD /* WebViewPresenter.swift */,
 				25F272E72CF5D9A8004430FD /* AuthHelper.swift */,
 			);
@@ -741,12 +735,10 @@
 				25648E732BE3F710008664F4 /* OAuthTokenBody.swift in Sources */,
 				25071E072BD6923F00861B42 /* AuthViewController.swift in Sources */,
 				25936EEE2C0937C900A0E46D /* ProfileService.swift in Sources */,
-				25C032ED2BE7C77B007BD6CF /* AuthViewControllerDelegate.swift in Sources */,
 				25C5BE692C1907F20057CB38 /* ProfileImageService.swift in Sources */,
 				25F272E62CF5D829004430FD /* WebViewPresenter.swift in Sources */,
 				25F272E02CF5D1C9004430FD /* AuthConfiguration.swift in Sources */,
 				259B469F2CDCE04300F96282 /* TabBarController.swift in Sources */,
-				25C032EF2BE7C7E5007BD6CF /* WebVIewControllerDelegate.swift in Sources */,
 				25BCE7F52C03F33C00A309E5 /* UIBlockingProgressHUD.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

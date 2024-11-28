@@ -46,7 +46,7 @@ final class ImagesListCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         heartButton.addTarget(self, action: #selector(likeButtonPressed), for: .touchUpInside)
-        heartButton.accessibilityIdentifier = "like button tapped"
+        heartButton.accessibilityIdentifier = "like button"
     }
     
     func configure(with photo: Photo) {
@@ -74,8 +74,10 @@ final class ImagesListCell: UITableViewCell {
     
     
     func updateLikeButton(isLiked: Bool) {
-        let likeImage = isLiked ? UIImage(named: "like_button_on") : UIImage(named: "like_button_off")
-        heartButton.setImage(likeImage, for: .normal)
+        DispatchQueue.main.async { [weak self] in
+            let likeImage = isLiked ? UIImage(named: "like_button_on") : UIImage(named: "like_button_off")
+            self?.heartButton.setImage(likeImage, for: .normal)
+        }
     }
     //Взаимодействие с сетью
     

@@ -24,7 +24,11 @@ class ProfilePresenter: ProfilePresenterProtocol {
     private let profileLogoutService: ProfileLogoutServiceProtocol
     private var profileImageServiceObserver: NSObjectProtocol?
     
-    init(view: ProfileViewProtocol? = nil, profileService: ProfileServiceProtocol, profileImageService: ProfileImageServiceProtocol, profileLogoutService: ProfileLogoutServiceProtocol, profileImageServiceObserver: NSObjectProtocol? = nil) {
+    init(view: ProfileViewProtocol? = nil,
+         profileService: ProfileServiceProtocol,
+         profileImageService: ProfileImageServiceProtocol,
+         profileLogoutService: ProfileLogoutServiceProtocol,
+         profileImageServiceObserver: NSObjectProtocol? = nil) {
         self.view = view
         self.profileService = profileService
         self.profileImageService = profileImageService
