@@ -7,14 +7,6 @@
 import UIKit
 final class SingleImageViewController: UIViewController {
     
-    var image: UIImage! {
-        didSet {
-            guard isViewLoaded, let image else { return }
-            
-            imageView.image = image
-            imageView.frame.size = image.size
-            rescaleAndCenterImageInScrollView(image: image)        }
-    }
     
     @IBOutlet private weak var scrollView: UIScrollView!
     
@@ -27,21 +19,15 @@ final class SingleImageViewController: UIViewController {
     var fullImageURL: String?
     
     override func viewDidLoad() {
-        scrollView.minimumZoomScale = 0.1
-        scrollView.maximumZoomScale = 1.25
-        
+        print("SingleImageViewController loaded")
+        backButton.accessibilityIdentifier = "nav back button white"
+        imageView.accessibilityIdentifier = "zoomable image"
+        print("ImageView accessibility identifier:", imageView.accessibilityIdentifier ?? "No identifier")
         setupScrollView()
         loadFullImage()
         imageView.contentMode = .scaleAspectFit
-        setupUI()
+        scrollView.delegate = self
         
-        guard let image else { return }
-        imageView.image = image
-        imageView.frame.size = image.size
-        rescaleAndCenterImageInScrollView(image: image)
-    }
-    
-    private func setupUI() {
         
         view.addSubview(scrollView)
         NSLayoutConstraint.activate([
@@ -77,24 +63,32 @@ final class SingleImageViewController: UIViewController {
     }
     
     
+    
     private func setupScrollView() {
         scrollView.minimumZoomScale = 0.1
-        scrollView.maximumZoomScale = 1.25
-        scrollView.delegate = self
+        scrollView.maximumZoomScale = 2.0
 
-        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap(sender:)))
-        doubleTapGesture.numberOfTapsRequired = 2
-        scrollView.addGestureRecognizer(doubleTapGesture)
+        let doubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap(_:)))
+              doubleTapGestureRecognizer.numberOfTapsRequired = 2
+              scrollView.addGestureRecognizer(doubleTapGestureRecognizer)
     }
     
-    @objc private func handleDoubleTap(sender: UITapGestureRecognizer) {
-        if scrollView.zoomScale == scrollView.minimumZoomScale {
-            let zoomRect = zoomRectForScale(scale: scrollView.maximumZoomScale, center: sender.location(in: sender.view))
-            scrollView.zoom(to: zoomRect, animated: true)
-        } else {
-            scrollView.setZoomScale(scrollView.minimumZoomScale, animated: true)
-        }
-    }
+    @objc func handleDoubleTap(_ recognizer: UITapGestureRecognizer) {
+         let pointInView = recognizer.location(in: imageView)
+         let zoomScaleFactor: CGFloat = min(scrollView.maximumZoomScale / 2, scrollView.zoomScale * 2)
+         if scrollView.zoomScale != scrollView.minimumZoomScale {
+             scrollView.setZoomScale(scrollView.minimumZoomScale, animated: true)
+         } else {
+             let scrollViewSize = scrollView.bounds.size
+             let w = scrollViewSize.width / zoomScaleFactor
+             let h = scrollViewSize.height / zoomScaleFactor
+             let x = pointInView.x - (w / 2.0)
+             let y = pointInView.y - (h / 2.0)
+             
+             let rectToZoomTo = CGRect(x: x, y: y, width: w, height: h)
+             scrollView.zoom(to: rectToZoomTo, animated: true)
+         }
+     }
     
     private func zoomRectForScale(scale: CGFloat, center: CGPoint) -> CGRect {
         let size = CGSize(width: scrollView.frame.size.width / scale,
@@ -160,11 +154,10 @@ final class SingleImageViewController: UIViewController {
     }
     
     @IBAction private func didTapShareButton(_ sender: Any) {
-        guard let image else { return }
+        guard let image = imageView.image else { return }
         let share = UIActivityViewController(
             activityItems: [image],
-            applicationActivities: nil
-        )
+            applicationActivities: nil)
         present(share, animated: true, completion: nil)
     }
     
