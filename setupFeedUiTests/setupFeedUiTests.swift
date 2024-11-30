@@ -16,7 +16,7 @@ final class ImageFeedUITests: XCTestCase {
         app.launch()
     }
     
-    func testAuth() {
+    func testAuth() throws {
  
         
         app.buttons["Войти"].tap()
