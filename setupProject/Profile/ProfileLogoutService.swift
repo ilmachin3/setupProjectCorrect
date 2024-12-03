@@ -2,13 +2,18 @@
 //  ProfileLogoutService.swift
 //  setupProject
 //
-//  Created by Илья Дышлюк on 13.11.2024.
+//  Created by Илья Дышлюк on 21.11.2024.
 //
 
 import Foundation
 import WebKit
 
-final class ProfileLogoutService {
+protocol ProfileLogoutServiceProtocol {
+    func logout()
+}
+
+final class ProfileLogoutService: ProfileLogoutServiceProtocol {
+    
     static let shared = ProfileLogoutService()
     
     private init() { }
@@ -18,7 +23,6 @@ final class ProfileLogoutService {
         resetProfileData()
         clearToken()
         navigateToInitialScreen()
-        
     }
     
     private func cleanCookies() {

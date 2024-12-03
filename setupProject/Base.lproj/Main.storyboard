@@ -51,7 +51,21 @@
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" insetsLayoutMarginsFromSafeArea="NO" image="0" translatesAutoresizingMaskIntoConstraints="NO" id="juN-qt-Hc8">
                                                     <rect key="frame" x="16" y="4" width="361" height="192"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="16"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                    </userDefinedRuntimeAttributes>
                                                 </imageView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5iY-mW-AWQ">
+                                                    <rect key="frame" x="335" y="4" width="42" height="42"/>
+                                                    <accessibility key="accessibilityConfiguration" identifier="like button"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <color key="tintColor" red="0.84705882349999995" green="0.33725490200000002" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                    <state key="normal" image="like_button_on"/>
+                                                </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yUj-nx-6Ye">
                                                     <rect key="frame" x="24.000000000000007" y="172.33333333333334" width="101.66666666666669" height="15.666666666666657"/>
                                                     <attributedString key="attributedText">
@@ -64,13 +78,6 @@
                                                     </attributedString>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5iY-mW-AWQ">
-                                                    <rect key="frame" x="335" y="4" width="42" height="42"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <color key="tintColor" red="0.84705882349999995" green="0.33725490200000002" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                    <state key="normal" image="like_button_on"/>
-                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" red="0.1019607843" green="0.1058823529" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
@@ -225,6 +232,10 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ict-yN-AUF"/>
+                    <connections>
+                        <outlet property="imageView" destination="HqR-GR-zcx" id="Ob6-no-Epe"/>
+                        <outlet property="loginButton" destination="yBs-A2-LJ6" id="a3K-Lo-ZrD"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Khm-MT-0AX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -233,7 +244,7 @@
         <!--Web View Controller-->
         <scene sceneID="e1R-P6-nEQ">
             <objects>
-                <viewController id="rIH-Q9-caI" customClass="WebViewController" customModule="setupProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WebViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="rIH-Q9-caI" customClass="WebViewController" customModule="setupProject" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fpp-ek-7XS">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -283,7 +294,6 @@
                     <navigationItem key="navigationItem" id="IWi-Ty-MrB"/>
                     <connections>
                         <outlet property="progressView" destination="1vp-OF-EgW" id="X8M-MR-6gf"/>
-                        <outlet property="progressViewAction" destination="1vp-OF-EgW" id="J8i-Cf-7aY"/>
                         <outlet property="webView" destination="bK6-s1-q3O" id="XbA-C0-nWH"/>
                     </connections>
                 </viewController>
